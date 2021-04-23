@@ -3,7 +3,7 @@ import template from './exampleTextLWC.html';
 import { OmniscriptBaseMixin } from "vlocity_cmt/omniscriptBaseMixin";
 import { fetchCustomLabels, getUserProfile } from "vlocity_cmt/utility"
 
-export default class exampleTextLWC extends OmniscriptBaseMixin(
+export default class customLabelLWC extends OmniscriptBaseMixin(
   LightningElement) {//your lwc code here for radio group as shown above
 
     @api optionsList;
