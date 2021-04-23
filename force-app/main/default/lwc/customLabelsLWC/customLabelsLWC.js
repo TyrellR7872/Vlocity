@@ -7,25 +7,22 @@ export default class customLabelLWC extends OmniscriptBaseMixin(
   LightningElement) {//your lwc code here for radio group as shown above
 
     @api optionsList;
+    @api labelList;
     @api value = "en-US";
     @api exampleText;
-    translations;
-    accountTranslation;
-    accordingTranslation;
-    accommodateTranslation;
-    labels = ["Account", "According","Accommodate"];
+    allTranslations = [];
     status;
-    errorM;
+    labelValues = [];
     selectedOption;
+    length;
 
    
 
     handleChange(event){
-        this.value = event.detail.value;
-        this.getCustomLabels();
-         
-         
+
         
+        this.value = event.detail.value;
+        this.getCustomLabels();  
     }
 
     render() {
@@ -35,32 +32,22 @@ export default class customLabelLWC extends OmniscriptBaseMixin(
     }
 
     getCustomLabels(){
-        
         fetchCustomLabels(
-            this.labels, this.value, this.labels)
+            this.labelValues, this.value, this.labelValues)
             .then(
                 data => {
-                console.log(data); 
-                this.translations = data;
-                this.accountTranslation = this.translations[this.labels[0]];
-                this.accordingTranslation = this.translations[this.labels[1]];
-                this.accommodateTranslation = this.translations[this.labels[2]];
-
+                    const translations = [];
+                    for (var i = 0; i < this.labelValues.length; i++){
+                        let translation = {
+                            "key" :this.labelValues[i],
+                            "value": data[this.labelValues[i]]
+                      
+                        }
+                        translations.push(translation);
+                }
+                this.allTranslations = translations;
             })
             .then(() => this.status = "success")
-            .then(() => {
-                let myData = {
-                    "value" : this.value,
-                    "AccountTranslation" : this.accountTranslation,
-                    "AccordingTranslation" : this.accordingTranslation,
-                    "AccommodateTranslation": this.accommodateTranslation,
-                    "Status": this.status
-                  
-                    
-                 }
-        
-                 this.omniApplyCallResp(myData);
-            })
             .catch(error => {
                 this.status = error}) ;
 
@@ -68,12 +55,21 @@ export default class customLabelLWC extends OmniscriptBaseMixin(
 
     }
 
+
+
     connectedCallback(){
+        
+    
+        for (var i = 0; i < this.labelList.length; i++){
+            this.labelValues.push(this.labelList[i]);
+        }
         getUserProfile()
         .then(result => {
             this.value = result.language;
             this.getCustomLabels();
         });
+        
+        this.render();
     }
 
 

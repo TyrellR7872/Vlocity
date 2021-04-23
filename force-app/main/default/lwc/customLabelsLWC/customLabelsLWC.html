@@ -5,4 +5,13 @@
                           onchange={handleChange}
                           value={value}
                           type="radio"></lightning-radio-group>
+
+    <template for:each={allTranslations} for:item="label">
+       {label.key} : {label.value}
+       <br key={label.key} >
+    
+    </template>
+    Status: {status}
+
+
 </template>
