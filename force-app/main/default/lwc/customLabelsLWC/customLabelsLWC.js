@@ -6,24 +6,12 @@ import { fetchCustomLabels, getUserProfile } from "vlocity_cmt/utility"
 export default class customLabelLWC extends OmniscriptBaseMixin(
   LightningElement) {//your lwc code here for radio group as shown above
 
-    @api optionsList;
+  
     @api labelList;
-    @api value = "en-US";
-    @api exampleText;
     allTranslations = [];
     status;
     labelValues = [];
-    selectedOption;
-    length;
 
-   
-
-    handleChange(event){
-
-        
-        this.value = event.detail.value;
-        this.getCustomLabels();  
-    }
 
     render() {
 

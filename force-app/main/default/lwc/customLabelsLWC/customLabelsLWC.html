@@ -1,10 +1,5 @@
 <template>
-    <lightning-radio-group name="radioGroup"
-                          label="Radio Group"
-                          options={optionsList}
-                          onchange={handleChange}
-                          value={value}
-                          type="radio"></lightning-radio-group>
+
 
     <template for:each={allTranslations} for:item="label">
        {label.key} : {label.value}
