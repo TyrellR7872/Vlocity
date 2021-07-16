@@ -1,0 +1,28 @@
+<template>
+    <lightning-accordion class="cases-accordion">
+        <template for:each={selectedCases} for:item="caseItem">
+            <lightning-accordion-section key = {caseItem.CaseId} label={caseItem.CaseSubject}>
+                <div key={caseItem.caseId} class="slds-m-around_medium">
+                    <lightning-input key={caseItem.CaseId} type="text" label="Case Number" value={caseItem.CaseNumber} disabled></lightning-input>
+                    <lightning-input key={caseItem.CaseId} data-case-item={caseItem.CaseId} type="text" label="Subject" value={caseItem.CaseSubject} onchange={handleSubjectChange}></lightning-input>
+                    <lightning-combobox
+                        name="priority"
+                        label="Priority"
+                        value={caseItem.CasePriority}
+                        options={priorityOptions}
+                        data-case-item={caseItem.CaseId}
+                        onchange={handlePriorityChange}
+                        ></lightning-combobox>
+                    <lightning-combobox
+                        name="status"
+                        label="Status"
+                        value={caseItem.CaseStatus}
+                        options={statusOptions}
+                        data-case-item={caseItem.CaseId}
+                        onchange={handleStatusChange}
+                        ></lightning-combobox>
+                </div>
+            </lightning-accordion-section>
+        </template>
+    </lightning-accordion>
+</template>

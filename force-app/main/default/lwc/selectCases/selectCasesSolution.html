@@ -1,8 +1,9 @@
 <template>
     <lightning-datatable
-        data={data}
+        data={allCases}
         columns={columns}
         key-field="CaseId"
-        onrowselection={handleRowSelection}>
+        onclick={getSelected}
+    >
 </lightning-datatable>
 </template>

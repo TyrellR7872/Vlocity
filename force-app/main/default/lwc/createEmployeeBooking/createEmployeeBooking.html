@@ -1,0 +1,27 @@
+<template >
+    
+    <lightning-card title="Book a Time Slot">
+        <template if:true={result}>
+            {isAvailable}
+        <lightning-record-edit-form object-api-name="Employee_Booking__c"  onsuccess={handleSuccess}>
+
+            <lightning-input-field field-name="Employee__c" value="" variant="label-stacked" onchange={handleEmployeeChange}> </lightning-input-field>
+            <lightning-input-field field-name="Time_Slot__c" value="" variant="label-stacked" onchange={handleTimeChange}> </lightning-input-field>
+            <lightning-input-field field-name="Booking_Email__c" value="" variant="label-stacked" onchange={handleEmailChange}> </lightning-input-field>
+            <lightning-input-field field-name="Booking_Phone_Number__c" value="" variant="label-stacked" onchange={handlePhoneChange}> </lightning-input-field>
+
+            <div class="slds-m-top_medium">
+                <lightning-button variant="brand" type="submit" name="save" label="Create Employee Booking">
+                </lightning-button>
+           </div>
+        </lightning-record-edit-form>       
+    </template>
+    <template if:false={result}> 
+        There are no available time slots.
+    </template>
+    </lightning-card>
+
+    <template if:true={bookingCreated}>
+        <button onclick={nextButton}>See Booking Confirmation </button>
+    </template>
+</template>

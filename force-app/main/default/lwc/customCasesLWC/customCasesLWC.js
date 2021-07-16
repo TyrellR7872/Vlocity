@@ -4,9 +4,8 @@ import { OmniscriptBaseMixin } from "vlocity_cmt/omniscriptBaseMixin";
 
 const columns =  [
     {label: 'Case Number', fieldName: 'CaseNumber'},
-    {label: 'Case Subject', fieldName: 'CaseSubject'},
-    {label: 'Case Type', fieldName: 'CaseType'},
-    {label: 'Case Status', fieldName: 'CaseStatus'}
+    {label: 'Case Subject', fieldName: 'CaseSubject', editable: 'true'},
+    {label: 'Case Description', fieldName: 'Description', editable: 'true'}
     
 
 
@@ -18,26 +17,43 @@ export default class CustomCasesLWC extends OmniscriptBaseMixin(LightningElement
     columns = columns;
     selectedCaseId;
 
+
     data;
     render() {
         return template;
     }
     
-    getSelectedCase(event){
+    handleRowSelection(event){
         var selectedRows = event.detail.selectedRows;
         if (selectedRows.length > 1){
             var el = this.template.querySelector('lightning-datatable');
             selectedRows = el.selectedRows = el.selectedRows.slice(1);
 
             event.preventDefault();
+            this.selectedCaseId = selectedRows[0].CaseId;
+
+            
            
-        }
-        this.selectedCaseId = selectedRows[0].CaseId;
-        let myData = {
-            'SelectedCaseId' : this.selectedCaseId
-        };
-        this.omniApplyCallResp(myData);
+        }else if(selectedRows.length==0){
+            selectedRows=el.selectedRows=this._selectedRowId;
+            event.preventDefault();
+            return;
+        }   
+                 this.selectedCaseId = selectedRows[0].CaseId;
+            let myData = {
+                'SelectedCaseId' : this.selectedCaseId
+            };
+            this.omniApplyCallResp(myData);
+
     }
+
+    // handleSave(event) {
+    //     this.saveDraftValues = event.detail.draftValues;
+    //     let myData = {
+    //         'DraftValues' : this.saveDraftValues
+    //     };
+    //     this.omniApplyCallResp(myData);
+    // }
 
 
 

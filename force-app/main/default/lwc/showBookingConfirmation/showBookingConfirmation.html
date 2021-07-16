@@ -1,0 +1,19 @@
+<template>
+    <lightning-card  icon-name="standard:contact">
+        <template if:true={result}>
+            <div class="slds-m-around_medium">
+            
+                <p>Thank you, {employeeName}, your vaccination appointment has been successfully booked.
+                    Your appointment is scheduled for {appointmentTime}. We have sent an email to 
+                    {email} and a push notification to {phone} that includes your 
+                    booking confirmation number: {confirmationNumber} 
+                    and appointment time. 
+                </p>
+                
+            </div>
+        </template>
+        <template if:true={error}>
+           {error}
+        </template>
+    </lightning-card>
+</template>
